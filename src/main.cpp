@@ -1426,7 +1426,7 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex)
 	}
 
     if (vtx[0].GetValueOut() > GetBlockValue(pindex->nHeight, nFees, prevHash))
-        return false;
+return DoS(100, error("ConnectBlock() : coinbase pays too much (actual=%"PRI64d" vs limit=%"PRI64d")", vtx[0].GetValueOut(), GetBlockValue(pindex->nHeight, nFees)));
 
     // Update block index on disk without changing it in memory.
     // The memory index structure will be changed after the db commits.
@@ -2007,7 +2007,7 @@ bool LoadBlockIndex(bool fAllowNew)
             return false;
 
         // Genesis block
-        const char* pszTimestamp = "Spain's Sorteo Extraordinario de Navidad (Spanish Christmas Lottery) is the world's largest lottery and has the largest first prize jackpot. In 2012, the main jackpot was €720 million (US$941.8 million).";
+        const char* pszTimestamp = "Spain's Sorteo Extraordinario de Navidad (Spanish Christmas Lottery) is the world's largest lottery and has the largest first prize jackpot. In 2012, the main jackpot was ï¿½720 million (US$941.8 million).";
         CTransaction txNew;
         txNew.vin.resize(1);
         txNew.vout.resize(1);
